@@ -14,6 +14,8 @@ class PabotTests(unittest.TestCase):
                                                                                 'tests/failingarg.txt',
                                                                                 '--resourcefile',
                                                                                 'tests/valueset.dat',
+                                                                                '--listener',
+                                                                                'RFLogging.py',
                                                                                 'tests/fixtures'])
         self._outs_dir = pabot._output_dir(self._options)
 
