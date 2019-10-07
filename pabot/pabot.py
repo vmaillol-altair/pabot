@@ -103,6 +103,11 @@ try:
 except ImportError:
     import Queue as queue # type: ignore 
 
+try:
+    from shlex import quote # type: ignore 
+except ImportError:
+    from pipes import quote # type: ignore 
+
 from typing import List, Optional, Union, Dict, Tuple
 
 CTRL_C_PRESSED = False
@@ -234,7 +239,7 @@ def _increase_completed(plib, my_index):
 def _run(cmd, stderr, stdout, item_name, verbose, pool_id):
     timestamp = datetime.datetime.now()
     # isinstance(cmd,list)==True
-    cmd = ' '.join(cmd)
+    cmd = ' '.join(quote(lex) for lex in cmd)
     # isinstance(cmd,basestring if PY2 else str)==True
     if PY2:
         cmd = cmd.decode('utf-8').encode(SYSTEM_ENCODING)
